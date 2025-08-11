@@ -94,7 +94,8 @@ CONFIG_extra = --enable-shared \
 	--enable-libopencore_amrnb \
 	--enable-libopencore_amrwb \
 	--enable-libtesseract \
-	--enable-libvo_amrwbenc
+	--enable-libvo_amrwbenc \
+	--enable-rkmpp
 
 # Do not enable libsmbclient support on hurd-i386
 ifeq (,$(filter hurd-i386,$(DEB_HOST_ARCH)))
