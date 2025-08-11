@@ -12,7 +12,14 @@ jobs:
     runs-on: ubuntu-24.04-arm
     steps:
       - uses: actions/checkout@v4
-
+      - name: Download latest mpp artifact
+        uses: dawidd6/action-download-artifact@v6
+        with:
+          github_token: ${{secrets.GITHUB_TOKEN}}
+          workflow: build.yml
+          repo: windowsair/mpp-packaging
+          path: ./download/
+          use_unzip: true
       - name: Build DEB in Debian container
         run: |
           docker run --rm -t \
@@ -20,6 +27,8 @@ jobs:
             -w /src \
             debian:bookworm \
             bash -c "\
+              ls -a /src/download/debian-packages/ && \
+              dpkg -i /src/download/debian-packages/*.deb && \
               apt-get update && \
               apt-get install -y build-essential devscripts fakeroot && \
               apt-get build-dep -y . && \
