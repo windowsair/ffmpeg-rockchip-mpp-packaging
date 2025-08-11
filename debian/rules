@@ -162,7 +162,6 @@ else
 		--enable-ladspa \
 		--enable-libbluray \
 		--enable-libcaca \
-		--enable-libdvdread \
 		--enable-libjack \
 		--enable-libpulse \
 		--enable-librabbitmq \
