@@ -1,0 +1,27 @@
+name: Build DEB
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - tmp
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04-arm
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build DEB in Debian container
+        run: |
+          docker run --rm -t \
+            -v "$PWD":/src \
+            -w /src \
+            debian:bookworm \
+            bash -c "\
+              apt-get update && \
+              apt-get install -y build-essential devscripts fakeroot && \
+              apt-get build-dep -y . && \
+              dpkg-buildpackage -b
+            "
